@@ -1,5 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<resources>
-	<string name="hello">>http://192.198.0.3/SMT.asmx</string>
-	<string name="app_name">SMTDroid</string>
-</resources>
