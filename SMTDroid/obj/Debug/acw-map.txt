@@ -1,0 +1,14 @@
+SMTDroid.MainActivity;smtdroid.MainActivity
+SMTDroid.Menu;smtdroid.Menu
+SMTDroid.Events;smtdroid.Events
+SMTDroid.Events.EventListAdapter;smtdroid.Events_EventListAdapter
+SMTDroid.Event;smtdroid.Event
+SMTDroid.Event.EventListAdapter;smtdroid.Event_EventListAdapter
+SMTDroid.People;smtdroid.People
+SMTDroid.People.PeopleListAdapter;smtdroid.People_PeopleListAdapter
+SMTDroid.EventsAttended;smtdroid.EventsAttended
+SMTDroid.EventsAttended.EventListAdapter;smtdroid.EventsAttended_EventListAdapter
+SMTDroid.PeopleMet;smtdroid.PeopleMet
+SMTDroid.PeopleMet.PeopleListAdapter;smtdroid.PeopleMet_PeopleListAdapter
+SMTDroid.Person;smtdroid.Person
+SMTDroid.Person.EventListAdapter;smtdroid.Person_EventListAdapter

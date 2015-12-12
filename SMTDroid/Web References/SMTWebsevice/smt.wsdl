@@ -1,0 +1,569 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://SMTWebservice/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://SMTWebservice/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://SMTWebservice/">
+      <s:element name="login">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="loginResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="loginResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="listEvents">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="eventOption" type="tns:queryTimeOption" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="queryTimeOption">
+        <s:restriction base="s:string">
+          <s:enumeration value="Past" />
+          <s:enumeration value="Present" />
+          <s:enumeration value="Future" />
+          <s:enumeration value="All" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="listEventsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="listEventsResult" type="tns:ArrayOfEvent" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfEvent">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Event" nillable="true" type="tns:Event" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Event">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="url" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="location" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="session" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="description" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="dateCreated" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="listEventsByContact">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="contactId" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="eventOption" type="tns:queryTimeOption" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="listEventsByContactResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="listEventsByContactResult" type="tns:ArrayOfEvent" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getEventById">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="eventId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getEventByIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getEventByIdResult" type="tns:Event" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="toggleAttendEvent">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="eventId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="personId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="toggleAttendEventResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="toggleAttendEventResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="isAttendingEvent">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="eventId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="personId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="isAttendingEventResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="isAttendingEventResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="listContacts">
+        <s:complexType />
+      </s:element>
+      <s:element name="listContactsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="listContactsResult" type="tns:ArrayOfContact" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfContact">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Contact" nillable="true" type="tns:Contact" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Contact">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="jobTitle" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="organisation" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="notes" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="dateCreated" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="listContactsMet">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="listContactsMetResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="listContactsMetResult" type="tns:ArrayOfContact" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="listContactsInEvent">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="eventId" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="eventOption" type="tns:queryTimeOption" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="listContactsInEventResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="listContactsInEventResult" type="tns:ArrayOfContact" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getContactById">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="contactId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getContactByIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getContactByIdResult" type="tns:Contact" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="toggleContactMet">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="personId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="toggleContactMetResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="toggleContactMetResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="isContactMet">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="personId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="isContactMetResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="isContactMetResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="loginSoapIn">
+    <wsdl:part name="parameters" element="tns:login" />
+  </wsdl:message>
+  <wsdl:message name="loginSoapOut">
+    <wsdl:part name="parameters" element="tns:loginResponse" />
+  </wsdl:message>
+  <wsdl:message name="listEventsSoapIn">
+    <wsdl:part name="parameters" element="tns:listEvents" />
+  </wsdl:message>
+  <wsdl:message name="listEventsSoapOut">
+    <wsdl:part name="parameters" element="tns:listEventsResponse" />
+  </wsdl:message>
+  <wsdl:message name="listEventsByContactSoapIn">
+    <wsdl:part name="parameters" element="tns:listEventsByContact" />
+  </wsdl:message>
+  <wsdl:message name="listEventsByContactSoapOut">
+    <wsdl:part name="parameters" element="tns:listEventsByContactResponse" />
+  </wsdl:message>
+  <wsdl:message name="getEventByIdSoapIn">
+    <wsdl:part name="parameters" element="tns:getEventById" />
+  </wsdl:message>
+  <wsdl:message name="getEventByIdSoapOut">
+    <wsdl:part name="parameters" element="tns:getEventByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="toggleAttendEventSoapIn">
+    <wsdl:part name="parameters" element="tns:toggleAttendEvent" />
+  </wsdl:message>
+  <wsdl:message name="toggleAttendEventSoapOut">
+    <wsdl:part name="parameters" element="tns:toggleAttendEventResponse" />
+  </wsdl:message>
+  <wsdl:message name="isAttendingEventSoapIn">
+    <wsdl:part name="parameters" element="tns:isAttendingEvent" />
+  </wsdl:message>
+  <wsdl:message name="isAttendingEventSoapOut">
+    <wsdl:part name="parameters" element="tns:isAttendingEventResponse" />
+  </wsdl:message>
+  <wsdl:message name="listContactsSoapIn">
+    <wsdl:part name="parameters" element="tns:listContacts" />
+  </wsdl:message>
+  <wsdl:message name="listContactsSoapOut">
+    <wsdl:part name="parameters" element="tns:listContactsResponse" />
+  </wsdl:message>
+  <wsdl:message name="listContactsMetSoapIn">
+    <wsdl:part name="parameters" element="tns:listContactsMet" />
+  </wsdl:message>
+  <wsdl:message name="listContactsMetSoapOut">
+    <wsdl:part name="parameters" element="tns:listContactsMetResponse" />
+  </wsdl:message>
+  <wsdl:message name="listContactsInEventSoapIn">
+    <wsdl:part name="parameters" element="tns:listContactsInEvent" />
+  </wsdl:message>
+  <wsdl:message name="listContactsInEventSoapOut">
+    <wsdl:part name="parameters" element="tns:listContactsInEventResponse" />
+  </wsdl:message>
+  <wsdl:message name="getContactByIdSoapIn">
+    <wsdl:part name="parameters" element="tns:getContactById" />
+  </wsdl:message>
+  <wsdl:message name="getContactByIdSoapOut">
+    <wsdl:part name="parameters" element="tns:getContactByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="toggleContactMetSoapIn">
+    <wsdl:part name="parameters" element="tns:toggleContactMet" />
+  </wsdl:message>
+  <wsdl:message name="toggleContactMetSoapOut">
+    <wsdl:part name="parameters" element="tns:toggleContactMetResponse" />
+  </wsdl:message>
+  <wsdl:message name="isContactMetSoapIn">
+    <wsdl:part name="parameters" element="tns:isContactMet" />
+  </wsdl:message>
+  <wsdl:message name="isContactMetSoapOut">
+    <wsdl:part name="parameters" element="tns:isContactMetResponse" />
+  </wsdl:message>
+  <wsdl:portType name="SMTSoap">
+    <wsdl:operation name="login">
+      <wsdl:input message="tns:loginSoapIn" />
+      <wsdl:output message="tns:loginSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="listEvents">
+      <wsdl:input message="tns:listEventsSoapIn" />
+      <wsdl:output message="tns:listEventsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="listEventsByContact">
+      <wsdl:input message="tns:listEventsByContactSoapIn" />
+      <wsdl:output message="tns:listEventsByContactSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getEventById">
+      <wsdl:input message="tns:getEventByIdSoapIn" />
+      <wsdl:output message="tns:getEventByIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="toggleAttendEvent">
+      <wsdl:input message="tns:toggleAttendEventSoapIn" />
+      <wsdl:output message="tns:toggleAttendEventSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="isAttendingEvent">
+      <wsdl:input message="tns:isAttendingEventSoapIn" />
+      <wsdl:output message="tns:isAttendingEventSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="listContacts">
+      <wsdl:input message="tns:listContactsSoapIn" />
+      <wsdl:output message="tns:listContactsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="listContactsMet">
+      <wsdl:input message="tns:listContactsMetSoapIn" />
+      <wsdl:output message="tns:listContactsMetSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="listContactsInEvent">
+      <wsdl:input message="tns:listContactsInEventSoapIn" />
+      <wsdl:output message="tns:listContactsInEventSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getContactById">
+      <wsdl:input message="tns:getContactByIdSoapIn" />
+      <wsdl:output message="tns:getContactByIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="toggleContactMet">
+      <wsdl:input message="tns:toggleContactMetSoapIn" />
+      <wsdl:output message="tns:toggleContactMetSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="isContactMet">
+      <wsdl:input message="tns:isContactMetSoapIn" />
+      <wsdl:output message="tns:isContactMetSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SMTSoap" type="tns:SMTSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="login">
+      <soap:operation soapAction="http://SMTWebservice/login" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="listEvents">
+      <soap:operation soapAction="http://SMTWebservice/listEvents" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="listEventsByContact">
+      <soap:operation soapAction="http://SMTWebservice/listEventsByContact" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getEventById">
+      <soap:operation soapAction="http://SMTWebservice/getEventById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="toggleAttendEvent">
+      <soap:operation soapAction="http://SMTWebservice/toggleAttendEvent" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="isAttendingEvent">
+      <soap:operation soapAction="http://SMTWebservice/isAttendingEvent" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="listContacts">
+      <soap:operation soapAction="http://SMTWebservice/listContacts" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="listContactsMet">
+      <soap:operation soapAction="http://SMTWebservice/listContactsMet" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="listContactsInEvent">
+      <soap:operation soapAction="http://SMTWebservice/listContactsInEvent" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getContactById">
+      <soap:operation soapAction="http://SMTWebservice/getContactById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="toggleContactMet">
+      <soap:operation soapAction="http://SMTWebservice/toggleContactMet" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="isContactMet">
+      <soap:operation soapAction="http://SMTWebservice/isContactMet" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="SMTSoap12" type="tns:SMTSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="login">
+      <soap12:operation soapAction="http://SMTWebservice/login" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="listEvents">
+      <soap12:operation soapAction="http://SMTWebservice/listEvents" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="listEventsByContact">
+      <soap12:operation soapAction="http://SMTWebservice/listEventsByContact" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getEventById">
+      <soap12:operation soapAction="http://SMTWebservice/getEventById" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="toggleAttendEvent">
+      <soap12:operation soapAction="http://SMTWebservice/toggleAttendEvent" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="isAttendingEvent">
+      <soap12:operation soapAction="http://SMTWebservice/isAttendingEvent" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="listContacts">
+      <soap12:operation soapAction="http://SMTWebservice/listContacts" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="listContactsMet">
+      <soap12:operation soapAction="http://SMTWebservice/listContactsMet" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="listContactsInEvent">
+      <soap12:operation soapAction="http://SMTWebservice/listContactsInEvent" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getContactById">
+      <soap12:operation soapAction="http://SMTWebservice/getContactById" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="toggleContactMet">
+      <soap12:operation soapAction="http://SMTWebservice/toggleContactMet" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="isContactMet">
+      <soap12:operation soapAction="http://SMTWebservice/isContactMet" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SMT">
+    <wsdl:port name="SMTSoap" binding="tns:SMTSoap">
+      <soap:address location="http://192.168.0.3/smt.asmx" />
+    </wsdl:port>
+    <wsdl:port name="SMTSoap12" binding="tns:SMTSoap12">
+      <soap12:address location="http://192.168.0.3/smt.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
